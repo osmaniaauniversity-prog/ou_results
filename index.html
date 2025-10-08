@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OSMANIA UNIVERSITY</title>
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      background-color: #f5f5dc;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .form-row {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 20px;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .form-row label {
+      font-weight: bold;
+      width: 220px;
+      text-align: right;
+    }
+
+    .form-row input {
+      padding: 10px;
+      font-size: 16px;
+      width: 300px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: red;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: darkred;
+    }
+
+    .error {
+      color: red;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .marquee {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #f44336;
+      color: white;
+      font-weight: bold;
+      padding: 10px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>OSMANIA UNIVERSITY</h2>
+  <h3>Semester Results</h3>
+  
+  <div class="form-container">
+    <div class="form-row">
+      <label for="hallticket">Enter Hall Ticket Number:</label>
+      <input type="text" id="hallticket" placeholder="Hall Ticket Number">
+    </div>
+
+    <div class="form-row">
+      <label for="password">Enter Password:</label>
+      <input type="password" id="password" placeholder="Password">
+    </div>
+  </div>
+
+  <label>
+    <input type="checkbox" id="showPassword" onchange="togglePassword()"> Show Password
+  </label><br>
+
+  <button onclick="checkResult()">Submit</button>
+
+  <div id="errorMsg" class="error"></div>
+
+  <script>
+    const results = {
+      "245324748051": {
+        image: "OU_RESULTS.webp",
+        password: "aditya123"
+      },
+      "245324748045": {
+        image: "OU_RES_LOKESH.webp",
+        password: "lokesh123"
+      }
+    };
+
+    function togglePassword() {
+      const pwd = document.getElementById("password");
+      const show = document.getElementById("showPassword").checked;
+      pwd.type = show ? "text" : "password";
+    }
+
+    function checkResult() {
+      const ht = document.getElementById("hallticket").value.trim();
+      const pwd = document.getElementById("password").value.trim();
+      const errorMsg = document.getElementById("errorMsg");
+      errorMsg.textContent = "";
+
+      if (!pwd) {
+        errorMsg.textContent = "Enter a valid password";
+        return;
+      }
+
+      if (results[ht]) {
+        if (pwd === results[ht].password) {
+          window.location.href = results[ht].image;
+        } else {
+          errorMsg.textContent = "Enter a valid password";
+        }
+      } else {
+        alert("Result not found for Hall Ticket: " + ht);
+      }
+    }
+  </script>
+
+  <div class="marquee">
+    <marquee behavior="scroll" direction="left">Enter a valid hall ticket number</marquee>
+  </div>
+
+</body>
+</html>
